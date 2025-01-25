@@ -99,7 +99,6 @@
   &:nth-child(n + 2) {
     font-size: var(--fs-xs);
     align-self: flex-end;
-    /* padding: unset; */
     padding: 0.1em 0.4em;
   }
 }
