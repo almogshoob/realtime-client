@@ -1,9 +1,13 @@
 import { useState } from "react";
 import "./App.css";
-import { stops } from "./assets/data";
+import { stops as stopsStaticData } from "./assets/data";
 import { Navbar, StopCard } from "./components";
-import { RouteSchedule } from "./types";
-import { getStopsSchedules } from "./utils";
+import { RouteSchedule, Stop } from "./types";
+import {
+  getStopsSchedules,
+  sortStopsByDistance,
+  updateLastLocation,
+} from "./utils";
 
 const userStops: { [key: string]: string[] } = {
   38234: ["84", "84א"],
@@ -16,60 +20,6 @@ const userStops: { [key: string]: string[] } = {
   31366: ["471"],
   // 20717: ["R1", "R2", "R3"],
 };
-
-/* dummy data
-const stopsSchedules: { [stopId: string]: RouteSchedule[] } = {
-  39311: [
-    {
-      shortName: "68",
-      headsign: "מרכזית תל אביב",
-      color: "orange",
-      arrivals: [
-        {
-          isRealtime: true,
-          arrivalTime: 1737758943,
-          arrivalDelay: 0,
-          isPickup: true,
-          isDropOff: true,
-          isAccessible: true,
-        },
-        {
-          isRealtime: true,
-          arrivalTime: 1737759640,
-          arrivalDelay: 0,
-          isPickup: true,
-          isDropOff: true,
-          isAccessible: true,
-        },
-      ],
-    },
-    {
-      shortName: "70",
-      headsign: "קניון איילון",
-      color: "blue",
-      arrivals: [
-        {
-          isRealtime: true,
-          arrivalTime: 1737758943,
-          arrivalDelay: 0,
-          isPickup: true,
-          isDropOff: true,
-          isAccessible: true,
-        },
-        {
-          isRealtime: true,
-          arrivalTime: 1737759640,
-          arrivalDelay: 0,
-          isPickup: true,
-          isDropOff: true,
-          isAccessible: true,
-        },
-      ],
-    },
-  ],
-  35694: [],
-};
-*/
 
 const staticDemoData = {
   "13207": [
@@ -976,22 +926,32 @@ const staticDemoData = {
 };
 
 function App() {
-  const [stopsSchedule, setStopsSchedule] = useState<{
-    [stopId: string]: RouteSchedule[];
-  }>({});
+  const [stops, setStops] = useState<
+    {
+      stopData: Stop;
+      routes: RouteSchedule[];
+    }[]
+  >([]);
 
   const userStopsById = Object.fromEntries(
-    Object.entries(userStops).map(([stopCode, lines]) => {
-      const stopId = stops.find((stop) => stop.code === stopCode)!.id;
-      return [stopId, lines];
+    Object.entries(userStops).map(([stopCode, routes]) => {
+      const stopId = stopsStaticData.find((stop) => stop.code === stopCode)!.id;
+      return [stopId, routes];
     })
   );
 
   const handleFetch = async () => {
     try {
+      await updateLastLocation();
       const stopsScheduleData = staticDemoData;
       // const stopsScheduleData = await getStopsSchedules(userStopsById);
-      setStopsSchedule(stopsScheduleData);
+      const stopsData = Object.entries(stopsScheduleData).map(
+        ([stopId, routes]) => {
+          const stopData = stopsStaticData.find((stop) => stop.id === stopId)!;
+          return { stopData, routes };
+        }
+      );
+      setStops(stopsData);
     } catch (error) {
       alert("error" + JSON.stringify(error));
     }
@@ -1002,12 +962,9 @@ function App() {
       <Navbar handleRefresh={handleFetch} />
       <main className="content">
         <div className="stop-list">
-          {Object.entries(stopsSchedule).map(([stopId, lines]) => {
-            const stopStaticData = stops.find((stop) => stop.id === stopId)!;
-            return (
-              <StopCard key={stopId} stopData={stopStaticData} lines={lines} />
-            );
-          })}
+          {stops.sort(sortStopsByDistance).map(({ stopData, routes }) => (
+            <StopCard key={stopData.id} stopData={stopData} routes={routes} />
+          ))}
         </div>
       </main>
     </>
@@ -1017,10 +974,8 @@ function App() {
 export default App;
 
 // TODO
-// - display saved stops sorted by distance, lines sorted by next time
-// - refresh button to data and location
-// - stop menu button with edit / delete
-// - search route once (nearby)
+// - search to add (suggest nearby?) + add modal
+// - stop 3 dots menu: edit, delete
 // - update time every 30s and clean past
 // - use password (https://bigprimes.org/)
-// - remove component not used (templates)
+// - remove component not used (templates. icons)

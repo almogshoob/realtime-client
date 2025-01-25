@@ -33,12 +33,12 @@ export const fetchGet = ({ url, params, headers }: FetchGet) =>
 
 const formatStopSchedule = (
   stopSchedule: BNRouteSchedule[],
-  lines: string[]
+  routes: string[]
 ) => {
   return stopSchedule
     .filter(
       (routeSchedule) =>
-        lines.includes(routeSchedule.pattern.route.shortName) &&
+        routes.includes(routeSchedule.pattern.route.shortName) &&
         routeSchedule.times.length
     )
     .map((routeSchedule) => ({

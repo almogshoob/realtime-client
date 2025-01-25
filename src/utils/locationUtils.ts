@@ -1,6 +1,6 @@
 import { stops } from "../assets/data";
-import { EARTH_RADIUS_KM } from "../constants/constants";
-import { Coordinate } from "../types";
+import { DEFAULT_LOCATION, EARTH_RADIUS_KM } from "../constants/constants";
+import { Coordinate, RouteSchedule, Stop } from "../types";
 
 export const getLocation = async () => {
   try {
@@ -25,20 +25,27 @@ export const getLocation = async () => {
   }
 };
 
+export const updateLastLocation = async () => {
+  const currentLocation = await getLocation();
+  if (currentLocation) {
+    localStorage.setItem("last-location", JSON.stringify(currentLocation));
+  } else if (!localStorage.getItem("last-location")) {
+    localStorage.setItem("last-location", JSON.stringify(DEFAULT_LOCATION));
+  }
+};
+
 const degToRad = (degree: number) => {
   return (degree * Math.PI) / 180;
 };
 
 export const haversineDistanceKM = (
-  lat1Deg: number,
-  lon1Deg: number,
-  lat2Deg: number,
-  lon2Deg: number
+  coordinate1: Coordinate,
+  coordinate2: Coordinate
 ) => {
-  const lat1Rad = degToRad(lat1Deg);
-  const lon1Rad = degToRad(lon1Deg);
-  const lat2Rad = degToRad(lat2Deg);
-  const lon2Rad = degToRad(lon2Deg);
+  const lat1Rad = degToRad(coordinate1.lat);
+  const lon1Rad = degToRad(coordinate1.lon);
+  const lat2Rad = degToRad(coordinate2.lat);
+  const lon2Rad = degToRad(coordinate2.lon);
 
   const d =
     2 *
@@ -56,8 +63,25 @@ export const haversineDistanceKM = (
 
 export const getNearStops = (location: Coordinate, radiusKM: number) => {
   return stops.filter(
-    (stop) =>
-      haversineDistanceKM(location.lat, location.lon, stop.lat, stop.lon) <
-      radiusKM
+    ({ lat, lon }) => haversineDistanceKM(location, { lat, lon }) < radiusKM
   );
+};
+
+export const sortStopsByDistance = (
+  a: { stopData: Stop; routes: RouteSchedule[] },
+  b: { stopData: Stop; routes: RouteSchedule[] }
+) => {
+  const location = JSON.parse(localStorage.getItem("last-location") || "");
+  if (!location) return 1;
+
+  return haversineDistanceKM(location, {
+    lat: a.stopData.lat,
+    lon: a.stopData.lon,
+  }) <
+    haversineDistanceKM(location, {
+      lat: b.stopData.lat,
+      lon: b.stopData.lon,
+    })
+    ? -1
+    : 1;
 };

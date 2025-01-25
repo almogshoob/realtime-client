@@ -26,7 +26,7 @@
   }
 }
 
-.stop-lines {
+.stop-routes {
   padding: 0.5em;
   & > :not(:last-child) {
     padding-bottom: 0.5em;
@@ -35,7 +35,7 @@
   }
 }
 
-.stop-line {
+.stop-route {
   display: flex;
   align-items: center;
   gap: 0.5em;
@@ -45,7 +45,7 @@
   }
 }
 
-.line-icon {
+.route-icon {
   --highlight-height: 0.3em;
   padding: 0.2em 0.4em;
   border-radius: 3px;
@@ -68,6 +68,7 @@
   flex-direction: row;
   align-items: center;
   gap: 0.2em;
+  overflow-x: auto;
 
   & > :nth-child(1) {
     margin-right: 0.2em;
@@ -76,10 +77,6 @@
     font-size: var(--fs-xs);
     align-self: flex-end;
   }
-
-  /* TODO remove */
-  /* max-width: 50%; */
-  overflow-x: auto;
 }
 
 .arrival-item {
@@ -89,12 +86,12 @@
   border-radius: 3px;
   border: solid 1px var(--border-color);
 
-  /* &[time-type="real"] { */
-  padding-left: 0.7em;
-  background-image: linear-gradient(
-    to right,
-    var(--highlight) var(--highlight-width),
-    transparent var(--highlight-width)
-  );
-  /* } */
+  &[time-type="real"] {
+    padding-left: 0.7em;
+    background-image: linear-gradient(
+      to right,
+      var(--highlight) var(--highlight-width),
+      transparent var(--highlight-width)
+    );
+  }
 }

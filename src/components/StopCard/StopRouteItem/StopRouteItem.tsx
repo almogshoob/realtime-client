@@ -4,21 +4,21 @@ import { RouteSchedule } from "../../../types";
 import "../StopCard.css"
 
 type Props = {
-  line: RouteSchedule;
+  route: RouteSchedule;
 };
 
-export const StopLineItem = ({ line }: Props) => {
+export const StopRouteItem = ({ route }: Props) => {
   return (
-    <div className="stop-line">
+    <div className="stop-route">
       <div
-        className="line-icon"
-        style={{ "--highlight": `#${line.color}` } as CSSProperties}
+        className="route-icon"
+        style={{ "--highlight": `#${route.color}` } as CSSProperties}
       >
-        <p>{line.shortName}</p>
+        <p>{route.shortName}</p>
       </div>
-      <p className="head-to">{line.headsign.split("_")[0]}</p>
+      <p className="head-to">{route.headsign.split("_")[0]}</p>
       <div className="arrivals">
-        {line.arrivals.map((arrival, i) => (
+        {route.arrivals.map((arrival, i) => (
           <span
             className="arrival-item"
             key={i}
