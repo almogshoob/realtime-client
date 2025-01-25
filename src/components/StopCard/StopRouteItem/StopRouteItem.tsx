@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 import { arrivalTimeToString } from "../../../utils";
 import { RouteSchedule } from "../../../types";
-import "../StopCard.css"
+import "../StopCard.css";
 
 type Props = {
   route: RouteSchedule;
@@ -18,16 +18,21 @@ export const StopRouteItem = ({ route }: Props) => {
       </div>
       <p className="head-to">{route.headsign.split("_")[0]}</p>
       <div className="arrivals">
-        {route.arrivals.map((arrival, i) => (
-          <span
-            className="arrival-item"
-            key={i}
-            time-type={arrival.isRealtime ? "real" : "scheduled"}
-          >
-            {/* TODO replace with Timer component auto refresh relative to now() */}
-            {arrivalTimeToString(arrival.arrivalTime)}
-          </span>
-        ))}
+        {route.arrivals.map((arrival, i) => {
+          const timeString = arrivalTimeToString(arrival.arrivalTime);
+          return (
+            <span
+              className="arrival-item"
+              key={i}
+              time-type={arrival.isRealtime ? "real" : "scheduled"}
+            >
+              {timeString}
+              {timeString.length <= 2 && (
+                <span style={{ fontSize: "0.7em" }}> min</span>
+              )}
+            </span>
+          );
+        })}
       </div>
     </div>
   );

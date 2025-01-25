@@ -31,10 +31,11 @@ export const fetchGet = ({ url, params, headers }: FetchGet) =>
     // else throw new Error(response.statusText);
   });
 
+// TODO combine multiple items with same route (if different pattern)
 const formatStopSchedule = (
   stopSchedule: BNRouteSchedule[],
   routes: string[]
-) => {
+): RouteSchedule[] => {
   return stopSchedule
     .filter(
       (routeSchedule) =>
