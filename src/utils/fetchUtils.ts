@@ -1,5 +1,5 @@
-import { API_URL, SERVER_URL } from "../constants/constants";
-import { BNRouteSchedule, RouteSchedule, Stop } from "../types";
+import { SERVER_URL } from "../constants/constants";
+import { BNRouteSchedule, RouteSchedule } from "../types";
 
 type UrlParams = { [key: string]: string | number | boolean };
 type UrlStringParams = { [key: string]: string };
@@ -79,6 +79,8 @@ export const getStopsSchedules = async (stops: {
     ])
   );
 };
+
+/*
 
 // -----------------------------------------------
 
@@ -197,3 +199,5 @@ const formatStopsTxt = (text: string) => {
 };
 
 // -----------------------------------------------
+
+*/
