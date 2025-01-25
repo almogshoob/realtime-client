@@ -47,7 +47,6 @@ function App() {
           return { stopData, routes };
         }
       );
-      console.log(stopsData);
       setStops(stopsData);
     } catch (error) {
       alert("שגיאה");
