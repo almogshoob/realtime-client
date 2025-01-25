@@ -59,7 +59,7 @@ const formatStopSchedule = (
 
 export const getStopSchedule = async (stopId: string, lines: string[]) => {
   const data: BNRouteSchedule[] = await fetchGet({
-    url: `${SERVER_URL}/get-stops`,
+    url: `${SERVER_URL}/get-stop`,
     params: { stopId },
   });
   return formatStopSchedule(data, lines);

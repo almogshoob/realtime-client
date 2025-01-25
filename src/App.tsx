@@ -22,6 +22,7 @@ const userStops: { [key: string]: string[] } = {
 };
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
   const [stops, setStops] = useState<
     {
       stopData: Stop;
@@ -37,6 +38,7 @@ function App() {
   );
 
   const handleFetch = async () => {
+    setIsLoading(true);
     try {
       await updateLastLocation();
       // const stopsScheduleData = DEMO_DATA;
@@ -48,14 +50,16 @@ function App() {
         }
       );
       setStops(stopsData);
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       alert("שגיאה");
     }
   };
 
   return (
     <>
-      <Navbar handleRefresh={handleFetch} />
+      <Navbar handleRefresh={handleFetch} isLoading={isLoading} />
       <main className="content">
         <div className="stop-list">
           {stops.sort(sortStopsByDistance).map(({ stopData, routes }) => (
