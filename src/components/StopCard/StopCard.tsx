@@ -15,7 +15,10 @@ export const StopCard = ({ stopData, routes }: Props) => {
       <StopHeader stopData={stopData} />
       <div className="stop-routes">
         {routes.sort(sortRoutesByNextTime).map((route) => (
-          <StopRouteItem key={route.shortName} route={route} />
+          <StopRouteItem
+            key={`${route.shortName}:${route.headsign}`}
+            route={route}
+          />
         ))}
       </div>
     </div>

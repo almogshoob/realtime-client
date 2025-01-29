@@ -31,7 +31,7 @@ export const fetchGet = ({ url, params, headers }: FetchGet) =>
     // else throw new Error(response.statusText);
   });
 
-// TODO combine multiple items with same route (if different pattern)
+// TODO combine duplicates by route + head sign (needed if different pattern)
 const formatStopSchedule = (
   stopSchedule: BNRouteSchedule[],
   routes: string[]
@@ -150,7 +150,7 @@ type DataStop = {
   stop_lon: string; // "34.843931";
   // zone_id: string; // "30530";
   // location_type: string; // "0";
-  // parent_station: string; // "";
+  // parent_station: string; // ""; // לרכבת קלה למשל יש תחנה אבא של כל הרציפים ו2 תחנות לפי רציף
 };
 
 const relevantKeys = [
