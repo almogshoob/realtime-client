@@ -130,6 +130,18 @@ button.icon-button {
   user-select: none;
 }
 
+.fa-r {
+  font-family: FontAwesome;
+  font-weight: 400;
+  font-size: 0.8em;
+}
+
+.fa-s {
+  font-family: FontAwesome;
+  font-weight: 900;
+  font-size: 0.8em;
+}
+
 @media (hover: hover) {
   button.icon-button:hover,
   button.icon-button:focus-visible {

@@ -26,14 +26,6 @@
   background-color: var(--bg-primary);
   max-height: 40svh;
   overflow: auto;
-
-  /* &::-webkit-scrollbar {
-    width: 5px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--border-color);
-    border-radius: 100vw;
-  } */
 }
 
 .autocomplete > li {

@@ -1,7 +1,6 @@
 .stop-wrapper {
   background-color: var(--bg-secondary);
   border-radius: 5px;
-  /* --stop-padding: 0.5em; */
 }
 
 .stop-header {
@@ -9,8 +8,34 @@
   gap: 0.5em;
   padding: 0.5em;
   border-bottom: solid 1px var(--border-color);
-  & > svg {
+  & svg {
     font-size: 1.5em;
+  }
+}
+
+.menu-button {
+  margin-inline-start: auto;
+  align-self: center;
+  anchor-name: --menu-button;
+}
+.stop-menu {
+  position-anchor: --menu-button;
+  position: absolute;
+  left: calc(anchor(right) + 0.5em);
+  top: anchor(top);
+
+  background-color: var(--bg-primary);
+  border-radius: 5px;
+  padding-block: 0.3em;
+  
+  & > li {
+    list-style: none;
+    padding: 0.3em 0.8em;
+
+    & > .fa-s {
+      margin-inline-end: 1em;
+      color: var(--txt-secondary);
+    }
   }
 }
 
