@@ -82,8 +82,6 @@ export const getStopsSchedules = async (stops: {
 
 /*
 
-// -----------------------------------------------
-
 // another data source gov
 // https://bus.gov.il/#/realtime/1/0/2/30530
 
@@ -138,7 +136,10 @@ const getStopRoutes = async (stopId: string) => {
   return data;
 };
 
-// -----------------------------------------------
+*/
+
+/*
+
 // one time function to process data stops.txt into stops.json
 
 type DataStop = {
@@ -148,9 +149,9 @@ type DataStop = {
   stop_desc: string; // "רחוב:   עיר: רמת גן רציף:  קומה: ";
   stop_lat: string; // "32.065728";
   stop_lon: string; // "34.843931";
-  // zone_id: string; // "30530";
-  // location_type: string; // "0";
-  // parent_station: string; // ""; // לרכבת קלה למשל יש תחנה אבא של כל הרציפים ו2 תחנות לפי רציף
+  parent_station: string; // לרכבת קלה למשל יש תחנה אבא של כל הרציפים ו2 תחנות לפי רציף
+  // location_type: string; // 1 for train stations / central stations / masof . else 0
+  // zone_id: string; // always identical to stop_code or empty string
 };
 
 const relevantKeys = [
@@ -160,6 +161,7 @@ const relevantKeys = [
   "stop_desc",
   "stop_lat",
   "stop_lon",
+  "parent_station",
 ];
 
 const keysRename: Record<keyof DataStop, keyof Stop> = {
@@ -169,14 +171,16 @@ const keysRename: Record<keyof DataStop, keyof Stop> = {
   stop_desc: "city",
   stop_lat: "lat",
   stop_lon: "lon",
+  parent_station: "parent",
 };
 const keysHendlers: Record<keyof DataStop, Function> = {
   stop_id: (v: string) => v,
   stop_code: (v: string) => v,
   stop_name: (v: string) => v,
   stop_desc: (v: string) => /עיר: (?<city>.+) רציף/.exec(v)?.groups?.city || "",
-  stop_lat: (v: string) => parseFloat(v),
-  stop_lon: (v: string) => parseFloat(v),
+  stop_lat: (v: string) => Number(v),
+  stop_lon: (v: string) => Number(v),
+  parent_station: (v: string) => v || null,
 };
 
 const formatStopsTxt = (text: string) => {
@@ -198,6 +202,15 @@ const formatStopsTxt = (text: string) => {
   console.log(stopsObject);
 };
 
-// -----------------------------------------------
+const formatRawStopsTxt = (text: string) => {
+  const [keys, ...data] = text.split("\n").map((row) => row.split(","));
+  const stopsObject = data.map((row) => {
+    const entries: [keyof DataStop, string][] = (
+      keys as (keyof DataStop)[]
+    ).map((key, i) => [key, row[i]]);
+    return Object.fromEntries(entries);
+  });
+  console.log(stopsObject);
+};
 
 */

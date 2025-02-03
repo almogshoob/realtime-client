@@ -1,4 +1,3 @@
-import { stops } from "../assets/data";
 import { DEFAULT_LOCATION, EARTH_RADIUS_KM } from "../constants/constants";
 import { Coordinate, RouteSchedule, Stop } from "../types";
 
@@ -29,9 +28,12 @@ export const updateLastLocation = async () => {
   const currentLocation = await getLocation();
   if (currentLocation) {
     localStorage.setItem("last-location", JSON.stringify(currentLocation));
-  } else if (!localStorage.getItem("last-location")) {
-    localStorage.setItem("last-location", JSON.stringify(DEFAULT_LOCATION));
   }
+};
+
+export const getLastLocation = () => {
+  const lastLocation = localStorage.getItem("last-location");
+  return lastLocation ? JSON.parse(lastLocation) : DEFAULT_LOCATION;
 };
 
 const degToRad = (degree: number) => {
@@ -61,10 +63,24 @@ export const haversineDistanceKM = (
   return parseFloat(d.toFixed(3));
 };
 
-export const getNearStops = (location: Coordinate, radiusKM: number) => {
+export const getStopsInRadius = (stops: Stop[], radiusKM: number) => {
+  const location = getLastLocation();
   return stops.filter(
     ({ lat, lon }) => haversineDistanceKM(location, { lat, lon }) < radiusKM
   );
+};
+
+export const getNearestStops = (stops: Stop[], max: number) => {
+  if (max < 1) return [];
+
+  const location = getLastLocation();
+  return stops
+    .sort(
+      ({ lat: lat1, lon: lon1 }, { lat: lat2, lon: lon2 }) =>
+        haversineDistanceKM(location, { lat: lat1, lon: lon1 }) -
+        haversineDistanceKM(location, { lat: lat2, lon: lon2 })
+    )
+    .slice(0, max);
 };
 
 export const sortStopsByDistance = (

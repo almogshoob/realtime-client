@@ -1,0 +1,32 @@
+.nav {
+  direction: ltr;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--bg-secondary);
+  border-bottom: solid 1px var(--border-color);
+
+  & > :first-child {
+    margin-inline-end: auto;
+  }
+
+  & .icon-button {
+    font-size: var(--fs-xl);
+    &:disabled > svg {
+      pointer-events: none;
+      animation: rotate infinite linear forwards 4s;
+    }
+  }
+}
+
+@keyframes rotate {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}

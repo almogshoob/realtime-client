@@ -1,5 +1,5 @@
 .stop-wrapper {
-  background-color: var(--bg-contrast);
+  background-color: var(--bg-secondary);
   border-radius: 5px;
   /* --stop-padding: 0.5em; */
 }

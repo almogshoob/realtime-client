@@ -1,10 +1,11 @@
 import { RouteSchedule } from "../types";
 
 export const arrivalTimeToString = (arrivalTime: number) => {
-  const minutesLeft = Math.floor((arrivalTime - Date.now() / 1000) / 60);
+  const epochInSec = Math.floor(Date.now() / 1000);
+  const minutesLeft = Math.floor((arrivalTime - epochInSec) / 60);
   if (minutesLeft < 0) return "עבר";
   else if (minutesLeft === 0) return "כעת";
-  // else if (minutesLeft < 60) return minutesLeft.toString(); //  TODO make minutes left updated without refresh
+  // else if (minutesLeft < 60) return minutesLeft.toString();
   else return new Date(arrivalTime * 1000).toTimeString().slice(0, 5);
 };
 

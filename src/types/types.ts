@@ -11,6 +11,7 @@ export type Stop = {
   city: string;
   lat: number;
   lon: number;
+  parent: string;
 };
 
 export type BNRouteArrival = {

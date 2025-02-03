@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { stops as stopsStaticData } from "./assets/data";
-import { Navbar, StopCard } from "./components";
+import { Navbar, SearchBar, StopCard } from "./components";
 import { RouteSchedule, Stop } from "./types";
 import {
   getStopsSchedules,
@@ -38,9 +38,9 @@ function App() {
   );
 
   const handleFetch = async () => {
+    await updateLastLocation();
     setIsLoading(true);
     try {
-      await updateLastLocation();
       // const stopsScheduleData = DEMO_DATA;
       const stopsScheduleData = await getStopsSchedules(userStopsById);
       const stopsData = Object.entries(stopsScheduleData).map(
@@ -61,6 +61,7 @@ function App() {
     <>
       <Navbar handleRefresh={handleFetch} isLoading={isLoading} />
       <main className="content">
+        <SearchBar />
         <div className="stop-list">
           {stops.sort(sortStopsByDistance).map(({ stopData, routes }) => (
             <StopCard key={stopData.id} stopData={stopData} routes={routes} />
@@ -76,6 +77,8 @@ export default App;
 // TODO
 // - search to add (suggest nearby?) + add modal
 // - stop 3 dots menu: edit, delete
-// - update time every 30s and clean past
+// - update time every 30s and clean past (then use minutes left instead of time)
 // - use password (https://bigprimes.org/)
 // - remove component not used (templates. icons)
+
+// GET ROUTES IN STOP https://api.busnearby.co.il/directions/index/stops/1:48863/routes

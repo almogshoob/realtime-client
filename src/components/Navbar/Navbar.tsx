@@ -1,4 +1,5 @@
 import { RefreshIcon } from "../../assets/icons";
+import "./Navbar.css";
 
 type Props = {
   handleRefresh: () => void;
