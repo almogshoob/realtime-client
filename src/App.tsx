@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { stops as stopsStaticData } from "./assets/data";
 import { Navbar, SearchBar, StopCard } from "./components";

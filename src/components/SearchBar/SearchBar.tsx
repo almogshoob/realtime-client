@@ -1,12 +1,6 @@
-import {
-  ChangeEvent,
-  FocusEventHandler,
-  MouseEventHandler,
-  useState,
-} from "react";
+import { ChangeEvent, MouseEventHandler, useState } from "react";
 import { stops } from "../../assets/data";
 import { Stop } from "../../types";
-import { getNearestStops } from "../../utils";
 import "./SearchBar.css";
 
 const stopsOptions = stops.filter((stop) => !stop.parent);
