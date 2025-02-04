@@ -38,11 +38,14 @@ function App() {
   );
 
   const handleFetch = async () => {
-    await updateLastLocation();
     setIsLoading(true);
     try {
+      const res = await Promise.all([
+        updateLastLocation(),
+        getStopsSchedules(userStopsById),
+      ]);
+      const stopsScheduleData = res[1];
       // const stopsScheduleData = DEMO_DATA;
-      const stopsScheduleData = await getStopsSchedules(userStopsById);
       const stopsData = Object.entries(stopsScheduleData).map(
         ([stopId, routes]) => {
           const stopData = stopsStaticData.find((stop) => stop.id === stopId)!;
