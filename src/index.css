@@ -114,6 +114,11 @@ button.icon-button {
   &:focus-visible {
     outline: none;
   }
+  &:hover,
+  &:focus-visible,
+  &:active {
+    background-color: var(--hover-color);
+  }
 }
 
 * {
@@ -130,6 +135,12 @@ button.icon-button {
   user-select: none;
 }
 
+.hoverable:hover,
+.hoverable:focus-visible,
+.hoverable:active {
+  background-color: color-mix(in lab, var(--bg-to-hover) 85%, currentColor 15%);
+}
+
 .fa-r {
   font-family: FontAwesome;
   font-weight: 400;
@@ -142,15 +153,6 @@ button.icon-button {
   font-size: 0.8em;
 }
 
-@media (hover: hover) {
-  button.icon-button:hover,
-  button.icon-button:focus-visible {
-    background-color: var(--hover-color);
-  }
-}
+/* @media (hover: hover) {} */
 
-@media (hover: none) {
-  button.icon-button:active {
-    background-color: var(--hover-color);
-  }
-}
+/* @media (hover: none) {} */

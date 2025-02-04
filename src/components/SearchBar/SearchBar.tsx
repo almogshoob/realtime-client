@@ -63,6 +63,7 @@ export const SearchBar = ({}: Props) => {
               key={stop.id}
               onMouseDown={(e) => e.preventDefault()} // prevent onBlur
               onClick={getSelectStopHandler(stop)}
+              className="hoverable"
             >
               <span>{stop.name}</span>
               <span>{stop.code}</span>

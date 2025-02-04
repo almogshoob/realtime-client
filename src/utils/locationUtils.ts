@@ -83,20 +83,17 @@ export const getNearestStops = (stops: Stop[], max: number) => {
     .slice(0, max);
 };
 
-export const sortStopsByDistance = (
-  a: { stopData: Stop; routes: RouteSchedule[] },
-  b: { stopData: Stop; routes: RouteSchedule[] }
-) => {
+export const sortStopsByDistance = (a: Stop, b: Stop) => {
   const location = JSON.parse(localStorage.getItem("last-location") || "");
   if (!location) return 1;
 
   return haversineDistanceKM(location, {
-    lat: a.stopData.lat,
-    lon: a.stopData.lon,
+    lat: a.lat,
+    lon: a.lon,
   }) <
     haversineDistanceKM(location, {
-      lat: b.stopData.lat,
-      lon: b.stopData.lon,
+      lat: b.lat,
+      lon: b.lon,
     })
     ? -1
     : 1;

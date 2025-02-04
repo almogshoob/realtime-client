@@ -82,3 +82,6 @@ export type RouteSchedule = {
 
 // get alerts by stop id
 // GET: https://api.busnearby.co.il/directions/patch/stopAlerts/1:39311?locale=he -> ?
+
+export type UserStops = { [stopId: string]: string[] };
+export type StopsSchedule = { [stopId: string]: RouteSchedule[] };

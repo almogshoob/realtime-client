@@ -5,6 +5,7 @@
 
 .stop-header {
   display: flex;
+  align-items: center;
   gap: 0.5em;
   padding: 0.5em;
   border-bottom: solid 1px var(--border-color);
@@ -13,24 +14,24 @@
   }
 }
 
-.menu-button {
+.menu-wrapper {
   margin-inline-start: auto;
-  align-self: center;
-  anchor-name: --menu-button;
+  position: relative;
 }
 .stop-menu {
-  position-anchor: --menu-button;
   position: absolute;
-  left: calc(anchor(right) + 0.5em);
-  top: anchor(top);
+  left: calc(100% + 0.5em);
+  top: 0;
 
   background-color: var(--bg-primary);
   border-radius: 5px;
   padding-block: 0.3em;
-  
+
   & > li {
     list-style: none;
+    cursor: pointer;
     padding: 0.3em 0.8em;
+    --bg-to-hover: var(--bg-primary);
 
     & > .fa-s {
       margin-inline-end: 1em;
