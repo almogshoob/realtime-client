@@ -24,7 +24,7 @@ const localStorageStops = JSON.parse(
   localStorage.getItem("stops") || JSON.stringify(userStopsAlmog)
 );
 
-const useStopsStore = create<StopsStore>((set, get) => ({
+const useStopsStore = create<StopsStore>((set, _get) => ({
   userStops: localStorageStops,
   setUserStops: (userStops) => set({ userStops }),
   stopsSchedule: {},

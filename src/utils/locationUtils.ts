@@ -1,5 +1,5 @@
 import { DEFAULT_LOCATION, EARTH_RADIUS_KM } from "../constants/constants";
-import { Coordinate, RouteSchedule, Stop } from "../types";
+import { Coordinate, Stop } from "../types";
 
 export const getLocation = async () => {
   try {
