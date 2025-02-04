@@ -84,9 +84,7 @@ export const getNearestStops = (stops: Stop[], max: number) => {
 };
 
 export const sortStopsByDistance = (a: Stop, b: Stop) => {
-  const location = JSON.parse(localStorage.getItem("last-location") || "");
-  if (!location) return 1;
-
+  const location = getLastLocation();
   return haversineDistanceKM(location, {
     lat: a.lat,
     lon: a.lon,
