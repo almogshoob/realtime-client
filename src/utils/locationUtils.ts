@@ -1,7 +1,7 @@
 import { DEFAULT_LOCATION, EARTH_RADIUS_KM } from "../constants/constants";
 import { Coordinate, Stop } from "../types";
 
-export const getLocation = async () => {
+export const getDeviceLocation = async () => {
   try {
     const location: Coordinate = await new Promise((resolve, reject) => {
       if (navigator.geolocation) {
@@ -21,13 +21,6 @@ export const getLocation = async () => {
     return location;
   } catch {
     return null;
-  }
-};
-
-export const updateLastLocation = async () => {
-  const currentLocation = await getLocation();
-  if (currentLocation) {
-    localStorage.setItem("last-location", JSON.stringify(currentLocation));
   }
 };
 
@@ -83,16 +76,19 @@ export const getNearestStops = (stops: Stop[], max: number) => {
     .slice(0, max);
 };
 
-export const sortStopsByDistance = (a: Stop, b: Stop) => {
-  const location = getLastLocation();
-  return haversineDistanceKM(location, {
-    lat: a.lat,
-    lon: a.lon,
-  }) <
+export const toSortedByDistance = (stops: Stop[], location: Coordinate) => {
+  const copy = stops.slice();
+  copy.sort((a, b) =>
+    haversineDistanceKM(location, {
+      lat: a.lat,
+      lon: a.lon,
+    }) <
     haversineDistanceKM(location, {
       lat: b.lat,
       lon: b.lon,
     })
-    ? -1
-    : 1;
+      ? -1
+      : 1
+  );
+  return copy;
 };

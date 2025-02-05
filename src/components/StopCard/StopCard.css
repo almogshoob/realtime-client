@@ -40,6 +40,25 @@
   }
 }
 
+.delete-modal {
+  & .delete-button {
+    display: block;
+    margin-right: auto;
+    margin-top: 0.5em;
+    --bg-to-hover: color-mix(in lab, var(--bg-secondary) 10%, red 90%);
+    background-color: var(--bg-to-hover);
+  }
+
+  & .edit-button {
+    display: block;
+    margin-right: auto;
+    margin-top: 0.5em;
+    color: var(--bg-secondary);
+    --bg-to-hover: var(--txt-primary);
+    background-color: var(--bg-to-hover);
+  }
+}
+
 .stop-description {
   & > p:nth-of-type(1) {
     font-weight: bold;

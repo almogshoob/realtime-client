@@ -1,31 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RefreshIcon } from "../../assets/icons";
 import useStopsStore from "../../stores/stops";
-import { getStopsSchedules, updateLastLocation } from "../../utils";
+import { getDeviceLocation, getStopsSchedules } from "../../utils";
 import "./Navbar.css";
+import useLocationStore from "../../stores/location";
 
 export const Navbar = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const userStops = useStopsStore((state) => state.userStops);
   const setStopsSchedule = useStopsStore((state) => state.setStopsSchedule);
-  
+  const setLocation = useLocationStore((state) => state.setLocation);
+
   const handleFetch = async () => {
     setIsLoading(true);
     try {
       const res = await Promise.all([
-        updateLastLocation(),
+        getDeviceLocation(),
         getStopsSchedules(userStops),
       ]);
-      // const stopsScheduleData = DEMO_DATA;
-      const stopsScheduleData = res[1];
-      setStopsSchedule(stopsScheduleData);
+      if (res[0]) setLocation(res[0]);
+      // setStopsSchedule(DEMO_DATA);
+      setStopsSchedule(res[1]);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       alert("שגיאה");
     }
   };
+
+  useEffect(() => {
+    getDeviceLocation().then((location) => {
+      if (location) setLocation(location);
+    });
+  }, []);
 
   return (
     <nav className="nav">

@@ -22,13 +22,11 @@ export const Modal = ({
   const ref = useRef<HTMLDialogElement>(null);
 
   const handleBackdropClick = (e: React.MouseEvent) => {
-    console.log("backdrop click");
     if (e.target instanceof HTMLElement && e.target.tagName === "DIALOG")
       onClose();
   };
 
   useEffect(() => {
-    console.log("use effect");
     if (open) ref.current?.showModal();
     else ref.current?.close();
   }, [open]);
@@ -45,13 +43,7 @@ export const Modal = ({
       ) : (
         <div className="TModal">
           <button
-            className="icon-button"
-            style={{
-              margin: "0.4rem",
-              padding: "0.1rem",
-              float: "left",
-              opacity: 0.75,
-            }}
+            className="TModalCloseButton | icon-button"
             onClick={onClose}
           >
             <CloseIcon />

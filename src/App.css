@@ -9,3 +9,16 @@
     margin-bottom: 0.5em;
   }
 }
+
+button {
+  border: unset;
+  border-radius: 5px;
+  padding: 0.25em 0.5em;
+}
+
+.TModal.TModal {
+  min-width: min(90vw, 400px);
+  color: var(--txt-primary);
+  background-color: var(--bg-primary);
+  border: solid 2px var(--border-color);
+}

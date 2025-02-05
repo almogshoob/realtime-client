@@ -56,17 +56,26 @@ dialog[open].TModalWrapper {
   font: inherit;
   max-width: min(50ch, 90vw);
   border-radius: 16px;
-  background-color: #FFF;
+  background-color: #fff;
   color: #000;
 }
 
+.TModalCloseButton {
+  margin: 1em;
+  padding: 0.1em;
+  float: left;
+  opacity: 0.75;
+  font-size: 0.8em;
+}
+
 .TModalHeader {
-  font-weight: 500;
-  padding: 0.5rem 2rem;
-  /* border-bottom: 1px solid currentColor; */
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 1em 1.5em 0.5em 2.5em;
+  text-wrap: nowrap;
 }
 
 .TModalBody {
-  padding: 1rem 2rem;
+  padding: 1em 1.5em;
   padding-top: 0;
 }
