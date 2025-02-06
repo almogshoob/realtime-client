@@ -1,0 +1,7 @@
+.delete-button {
+  display: block;
+  margin-right: auto;
+  margin-top: 0.5em;
+  --bg-to-hover: color-mix(in lab, var(--bg-secondary) 10%, red 90%);
+  background-color: var(--bg-to-hover);
+}

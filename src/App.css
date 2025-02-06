@@ -10,6 +10,13 @@
   }
 }
 
+.no-data {
+  text-align: center;
+  font-size: var(--fs-lg);
+  line-height: 1.5;
+  margin-block: auto;
+}
+
 button {
   border: unset;
   border-radius: 5px;

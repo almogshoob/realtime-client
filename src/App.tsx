@@ -29,6 +29,12 @@ function App() {
           {stops.map((stopData) => (
             <StopCard key={stopData.id} stopData={stopData} />
           ))}
+          {!stops.length && (
+            <div className="no-data">
+              <p>אין כאן תחנות 😯</p>
+              <p>השתמשו בחיפוש כדי להוסיף תחנה</p>
+            </div>
+          )}
         </div>
       </main>
     </>
@@ -38,10 +44,7 @@ function App() {
 export default App;
 
 // TODO
-// - search to add
-// - stop 3 dots menu: edit, delete
 // - show routes from init without times --:-- (update each route individually)
-// - location store
 // - map to search nearby
 // - update time every 30s and clean past (then use minutes left instead of time)
 // - use password (https://bigprimes.org/)

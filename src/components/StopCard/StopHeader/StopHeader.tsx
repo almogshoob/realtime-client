@@ -1,27 +1,29 @@
 import { useState } from "react";
 import { MenuIcon, StopIcon } from "../../../assets/icons";
 import { Stop } from "../../../types";
+import { DeleteModal } from "../../DeleteModal/DeleteModal";
+import { EditModal } from "../../EditModal/EditModal";
 import "../StopCard.css";
 
 type Props = {
   stopData: Stop;
-  openModal: (modal: string) => void;
 };
 
-export const StopHeader = ({ stopData, openModal }: Props) => {
+export const StopHeader = ({ stopData }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const menuOptions = [
     {
       name: "עריכה",
       icon: <span className="fa-s">&#xf304;</span>,
-      handler: () => openModal("edit"),
+      handler: () => setIsEditModalOpen(true),
     },
     {
       name: "מחיקה",
       icon: <span className="fa-s">&#xf1f8;</span>,
-      handler: () => openModal("delete"),
+      handler: () => setIsDeleteModalOpen(true),
     },
   ];
 
@@ -37,8 +39,8 @@ export const StopHeader = ({ stopData, openModal }: Props) => {
       <div className="menu-wrapper">
         <button
           className="icon-button"
-          onClick={toggleMenu}
-          onBlur={toggleMenu}
+          onClick={() => setIsMenuOpen(true)}
+          onBlur={() => setIsMenuOpen(false)}
         >
           <MenuIcon />
         </button>
@@ -58,6 +60,17 @@ export const StopHeader = ({ stopData, openModal }: Props) => {
           </menu>
         )}
       </div>
+      <EditModal
+        open={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        stopData={stopData}
+        mode="edit"
+      />
+      <DeleteModal
+        open={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        stopData={stopData}
+      />
     </div>
   );
 };

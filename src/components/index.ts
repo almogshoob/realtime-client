@@ -1,3 +1,5 @@
 export * from "./Navbar/Navbar"
 export * from "./StopCard/StopCard"
 export * from "./SearchBar/SearchBar"
+export * from "./EditModal/EditModal"
+export * from "./DeleteModal/DeleteModal"

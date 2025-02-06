@@ -1,0 +1,41 @@
+.add-input {
+  width: 100%;
+  margin-block: 0.5em;
+  padding: 0.25em 0.5em;
+  padding-left: 2em;
+  border-radius: 5px;
+  background-color: transparent;
+  outline: 1px solid var(--border-color);
+  border: unset;
+
+  &:focus-visible {
+    outline-width: 2px;
+    outline-color: var(--txt-primary);
+  }
+}
+
+.routes-tags {
+  display: flex;
+  flex-flow: wrap;
+  gap: 0.5em;
+  list-style: none;
+  & > * {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    padding-inline-end: 0.4em;
+    background-color: hsl(from currentColor h s l / 0.2);
+    cursor: pointer;
+  }
+}
+
+.edit-button {
+  display: block;
+  margin-right: auto;
+  margin-top: 0.5em;
+  color: var(--bg-secondary);
+  --bg-to-hover: var(--txt-primary);
+  background-color: var(--bg-to-hover);
+}

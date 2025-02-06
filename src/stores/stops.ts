@@ -1,20 +1,20 @@
 import { create } from "zustand";
 import { StopsSchedule, UserStops } from "../types";
 
-const userStopsAlmog: UserStops = {
-  25197: ["84", "84א"],
-  25192: ["84", "84א"],
-  35694: ["180", "292", "166", "470", "471", "472", "473"],
-  25092: ["292", "166", "472", "473", "68"],
-  39311: ["68", "70", "250"],
-  13274: ["68", "70", "180", "292"],
-  13207: ["68", "70", "292"],
-  15639: ["471"],
-  48863: ["R1", "R2", "R3"],
-};
+// const userStopsAlmog: UserStops = {
+//   25197: ["84", "84א"],
+//   25192: ["84", "84א"],
+//   35694: ["180", "292", "166", "470", "471", "472", "473"],
+//   25092: ["292", "166", "472", "473", "68"],
+//   39311: ["68", "70", "250"],
+//   13274: ["68", "70", "180", "292"],
+//   13207: ["68", "70", "292"],
+//   15639: ["471"],
+//   48863: ["R1", "R2", "R3"],
+// };
 
-if (!localStorage.getItem("stops"))
-  localStorage.setItem("stops", JSON.stringify(userStopsAlmog));
+// if (!localStorage.getItem("stops"))
+//   localStorage.setItem("stops", JSON.stringify(userStopsAlmog));
 
 type StopsStore = {
   userStops: UserStops;

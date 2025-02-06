@@ -2,6 +2,7 @@ import { ChangeEvent, MouseEventHandler, useState } from "react";
 import { stops } from "../../assets/data";
 import { Stop } from "../../types";
 import "./SearchBar.css";
+import { EditModal } from "../EditModal/EditModal";
 
 const stopsOptions = stops.filter((stop) => !stop.parent);
 
@@ -10,6 +11,9 @@ type Props = {};
 export const SearchBar = ({}: Props) => {
   const [searchValue, setSearchValue] = useState("");
   const [options, setOptions] = useState<Stop[]>([]);
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedStop, setSelectedStop] = useState<Stop>();
 
   const updateOptions = (searchValue: string) => {
     if (!searchValue) setOptions([]);
@@ -41,7 +45,8 @@ export const SearchBar = ({}: Props) => {
   const getSelectStopHandler =
     (stop: Stop): MouseEventHandler<HTMLLIElement> =>
     () => {
-      console.log("SELECT", stop.name);
+      setSelectedStop(stop);
+      setIsEditModalOpen(true);
       setSearchValue("");
       setOptions([]);
     };
@@ -70,6 +75,14 @@ export const SearchBar = ({}: Props) => {
             </li>
           ))}
         </menu>
+      )}
+      {selectedStop && (
+        <EditModal
+          open={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          stopData={selectedStop}
+          mode="add"
+        />
       )}
     </div>
   );
