@@ -16,7 +16,7 @@ export const reducer = <T, U>({
   const reduceFunction = (list: T[], item: T) => {
     if (!filterBefore || filterBefore(item)) {
       const mappedItem = map(item);
-      if (!filterAfter || filterAfter(mappedItem)) return list.concat([item]);
+      if (!filterAfter || filterAfter(mappedItem)) return [...list, item];
     }
     return list;
   };

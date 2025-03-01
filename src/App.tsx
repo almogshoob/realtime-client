@@ -44,9 +44,8 @@ function App() {
 export default App;
 
 // TODO
-// - show routes from init without times --:-- (update each route individually)
-// - map to search nearby
-// - update time every 30s and clean past (then use minutes left instead of time)
+// - enhance search
+// - search on map
 // - use password (https://bigprimes.org/)
 // - remove component not used (templates. icons)
 

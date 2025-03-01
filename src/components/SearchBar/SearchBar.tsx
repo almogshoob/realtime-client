@@ -3,6 +3,9 @@ import { stops } from "../../assets/data";
 import { Stop } from "../../types";
 import "./SearchBar.css";
 import { EditModal } from "../EditModal/EditModal";
+import { MapIcon } from "../../assets/icons";
+import { Modal } from "../templates";
+import { MapCard } from "../MapCard/MapCard";
 
 const stopsOptions = stops.filter((stop) => !stop.parent);
 
@@ -13,6 +16,7 @@ export const SearchBar = ({}: Props) => {
   const [options, setOptions] = useState<Stop[]>([]);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [selectedStop, setSelectedStop] = useState<Stop>();
 
   const updateOptions = (searchValue: string) => {
@@ -53,29 +57,38 @@ export const SearchBar = ({}: Props) => {
 
   return (
     <div className="searchbar-wrapper">
-      <input
-        value={searchValue}
-        onChange={handleChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        placeholder="חיפוש שם או מספר תחנה..."
-        className="searchbar"
-      />
-      {options.length > 0 && (
-        <menu className="autocomplete">
-          {options.map((stop) => (
-            <li
-              key={stop.id}
-              onMouseDown={(e) => e.preventDefault()} // prevent onBlur
-              onClick={getSelectStopHandler(stop)}
-              className="hoverable"
-            >
-              <span>{stop.name}</span>
-              <span>{stop.code}</span>
-            </li>
-          ))}
-        </menu>
-      )}
+      <div className="autocomplete-wrapper">
+        <input
+          value={searchValue}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          placeholder="חיפוש שם או מספר תחנה..."
+          className="searchbar"
+        />
+        {options.length > 0 && (
+          <menu className="autocomplete">
+            {options.map((stop) => (
+              <li
+                key={stop.id}
+                onMouseDown={(e) => e.preventDefault()} // prevent onBlur
+                onClick={getSelectStopHandler(stop)}
+                className="hoverable"
+              >
+                <span>{stop.name}</span>
+                <span>{stop.code}</span>
+              </li>
+            ))}
+          </menu>
+        )}
+      </div>
+      <button
+        className="map-button | hoverable"
+        onClick={() => setIsMapModalOpen(true)}
+      >
+        <MapIcon />
+      </button>
+
       {selectedStop && (
         <EditModal
           open={isEditModalOpen}
@@ -84,6 +97,14 @@ export const SearchBar = ({}: Props) => {
           mode="add"
         />
       )}
+      <Modal
+        raw
+        open={isMapModalOpen}
+        onClose={() => setIsMapModalOpen(false)}
+        className="map-modal"
+      >
+        <MapCard />
+      </Modal>
     </div>
   );
 };

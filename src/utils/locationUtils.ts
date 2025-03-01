@@ -1,6 +1,8 @@
 import { DEFAULT_LOCATION, EARTH_RADIUS_KM } from "../constants/constants";
 import { Coordinate, Stop } from "../types";
 
+export const coordinateToArray = ({ lat, lon }: Coordinate) => [lon, lat];
+
 export const getDeviceLocation = async () => {
   try {
     const location: Coordinate = await new Promise((resolve, reject) => {
@@ -26,7 +28,9 @@ export const getDeviceLocation = async () => {
 
 export const getLastLocation = () => {
   const lastLocation = localStorage.getItem("last-location");
-  return lastLocation ? JSON.parse(lastLocation) : DEFAULT_LOCATION;
+  return lastLocation
+    ? (JSON.parse(lastLocation) as Coordinate)
+    : DEFAULT_LOCATION;
 };
 
 const degToRad = (degree: number) => {

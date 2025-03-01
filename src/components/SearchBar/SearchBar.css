@@ -1,7 +1,20 @@
 .searchbar-wrapper {
-  position: relative;
+  display: flex;
+  flex-direction: row;
   margin-bottom: 1em;
-  
+  gap: 1ch;
+}
+
+.map-button {
+  border: solid 1px var(--border-color);
+  background-color: var(--bg-primary);
+  --bg-to-hover: var(--bg-primary);
+}
+
+.autocomplete-wrapper {
+  position: relative;
+  flex-grow: 1;
+
   &::after {
     content: "\f002";
     font-weight: 900;
@@ -50,4 +63,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.map-modal > :first-child {
+  min-width: min(90vw, 400px);
+  min-height: 90svh;
+  border-radius: 5px;
 }
