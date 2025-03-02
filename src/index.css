@@ -73,7 +73,8 @@ a {
 }
 
 :root {
-  font-family: "Rubik", Arial, sans-serif;
+  /* was Rubik but numbers variant in width */
+  font-family: Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

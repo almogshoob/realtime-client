@@ -1,5 +1,64 @@
 .map-container {
+  position: relative;
   display: block;
   height: 100%;
   flex-grow: 1;
+}
+
+.map-action-buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  gap: 0.25em;
+  padding: 0.5em;
+
+  & > * {
+    border-radius: 50%;
+    aspect-ratio: 1;
+    padding: 0.25em;
+    color: #000;
+    background-color: #fff;
+    box-shadow: 0 0 5px hsl(0 0 0 / 0.5);
+    --bg-to-hover: #fff;
+  }
+}
+
+.map-focus-button {
+  color: #255dfa;
+}
+
+.selected-stop {
+  z-index: 1;
+  position: absolute;
+  inset: auto 0 0 0;
+  font-size: var(--fs-md);
+  background-color: var(--bg-secondary);
+  border-radius: 10px 10px 0 0;
+  translate: 0;
+  animation: rise-up 300ms ease-in-out forwards;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 1em;
+  padding-bottom: calc(1em + 34px);
+  & svg {
+    font-size: 1.5em;
+  }
+  & > :last-child {
+    margin-inline-start: auto;
+  }
+}
+
+@keyframes rise-up {
+  from {
+    translate: 0 100%;
+  }
+  to {
+    translate: 0;
+  }
 }

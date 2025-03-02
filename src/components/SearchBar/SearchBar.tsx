@@ -1,13 +1,11 @@
 import { ChangeEvent, MouseEventHandler, useState } from "react";
-import { stops } from "../../assets/data";
 import { Stop } from "../../types";
 import "./SearchBar.css";
 import { EditModal } from "../EditModal/EditModal";
 import { MapIcon } from "../../assets/icons";
 import { Modal } from "../templates";
 import { MapCard } from "../MapCard/MapCard";
-
-const stopsOptions = stops.filter((stop) => !stop.parent);
+import { stopsDataList } from "../../assets/data";
 
 type Props = {};
 
@@ -23,7 +21,7 @@ export const SearchBar = ({}: Props) => {
     if (!searchValue) setOptions([]);
     else if (searchValue.length > 3)
       setOptions(
-        stopsOptions
+        stopsDataList
           .filter(
             (stop) =>
               stop.code.includes(searchValue) || stop.name.includes(searchValue)
@@ -97,13 +95,10 @@ export const SearchBar = ({}: Props) => {
           mode="add"
         />
       )}
-      <Modal
-        raw
-        open={isMapModalOpen}
-        onClose={() => setIsMapModalOpen(false)}
-        className="map-modal"
-      >
-        <MapCard />
+      <Modal raw open={isMapModalOpen} onClose={() => setIsMapModalOpen(false)}>
+        <div className="map-modal">
+          <MapCard />
+        </div>
       </Modal>
     </div>
   );

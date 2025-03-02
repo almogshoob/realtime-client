@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import "./App.css";
-import { stops as stopsStaticData } from "./assets/data";
 import { Navbar, SearchBar, StopCard } from "./components";
 import useLocationStore from "./stores/location";
 import useStopsStore from "./stores/stops";
 import { Stop } from "./types";
 import { toSortedByDistance } from "./utils";
+import { stopsData } from "./assets/data";
 
 function App() {
   const userStops = useStopsStore((state) => state.userStops);
@@ -13,9 +13,7 @@ function App() {
 
   const stops: Stop[] = useMemo(() => {
     return toSortedByDistance(
-      Object.keys(userStops).map(
-        (stopId) => stopsStaticData.find((stop) => stop.id === stopId)!
-      ),
+      Object.keys(userStops).map((stopId) => stopsData[stopId]),
       location
     );
   }, [userStops, location]);
@@ -45,8 +43,9 @@ export default App;
 
 // TODO
 // - enhance search
-// - search on map
+// - add stop using map
+// - focus to location and update untill off
+// NTH
 // - use password (https://bigprimes.org/)
 // - remove component not used (templates. icons)
-
 // GET ROUTES IN STOP https://api.busnearby.co.il/directions/index/stops/1:48863/routes

@@ -1,28 +1,24 @@
 import { AddLayerObject, GeoJSONSourceSpecification } from "maplibre-gl";
-import { stops } from "../../assets/data";
 import { MapLayerData } from "../../types";
 import { coordinateToArray } from "../../utils";
+import { stopsDataList } from "../../assets/data";
 
 const layerName = "stops";
 
-const stopsFeatures = stops
-  .filter((stop) => !stop.parent)
-  .map(({ id, lat, lon }) => {
-    const feature: GeoJSON.Feature = {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: coordinateToArray({ lat, lon }),
-      },
-      properties: {
-        stopId: id,
-        lat,
-        lon,
-        isSelected: false,
-      },
-    };
-    return feature;
-  });
+const stopsFeatures = stopsDataList.map(({ id, lat, lon }) => {
+  const feature: GeoJSON.Feature = {
+    type: "Feature",
+    geometry: {
+      type: "Point",
+      coordinates: coordinateToArray({ lat, lon }),
+    },
+    properties: {
+      stopId: id,
+      isSelected: false,
+    },
+  };
+  return feature;
+});
 
 const source: GeoJSONSourceSpecification = {
   type: "geojson",

@@ -38,20 +38,21 @@ export const Modal = ({
       onCancel={onClose}
       onClick={handleBackdropClick}
     >
-      {raw ? (
-        children
-      ) : (
-        <div className="TModal">
-          <button
-            className="TModalCloseButton | icon-button"
-            onClick={onClose}
-          >
-            <CloseIcon />
-          </button>
-          <div className="TModalHeader">{title}</div>
-          <div className="TModalBody">{children}</div>
-        </div>
-      )}
+      {open &&
+        (raw ? (
+          children
+        ) : (
+          <div className="TModal">
+            <button
+              className="TModalCloseButton | icon-button"
+              onClick={onClose}
+            >
+              <CloseIcon />
+            </button>
+            <div className="TModalHeader">{title}</div>
+            <div className="TModalBody">{children}</div>
+          </div>
+        ))}
     </dialog>
   );
 };
