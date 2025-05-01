@@ -1,4 +1,8 @@
-import { AddLayerObject, GeoJSONSourceSpecification } from "maplibre-gl";
+import {
+  AddLayerObject,
+  Feature,
+  GeoJSONSourceSpecification,
+} from "maplibre-gl";
 import { Coordinate, MapLayerData } from "../../types";
 import { coordinateToArray, getLastLocation } from "../../utils";
 
@@ -47,20 +51,20 @@ export const myLocationLayer: MapLayerData = {
 };
 
 export const updateLocationLayer = (coordinate: Coordinate | null) => {
+  const feature: GeoJSON.Feature = {
+    ...features[0],
+    geometry: {
+      type: "Point",
+      coordinates: coordinateToArray(coordinate || getLastLocation()),
+    },
+    properties: {
+      ...features[0].properties,
+      isActive: !!coordinate,
+    },
+  };
+
   return {
     type: "FeatureCollection",
-    features: [
-      {
-        ...features[0],
-        geometry: {
-          type: "Point",
-          coordinates: coordinateToArray(coordinate || getLastLocation()),
-        },
-        properties: {
-          ...features[0].properties,
-          isActive: !!coordinate,
-        },
-      },
-    ],
+    features: [feature],
   };
 };

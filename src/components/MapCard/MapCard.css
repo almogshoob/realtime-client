@@ -27,10 +27,6 @@
   }
 }
 
-.map-focus-button {
-  color: #255dfa;
-}
-
 .selected-stop {
   z-index: 1;
   position: absolute;
@@ -39,7 +35,7 @@
   background-color: var(--bg-secondary);
   border-radius: 10px 10px 0 0;
   translate: 0;
-  animation: rise-up 300ms ease-in-out forwards;
+  animation: rise-up 300ms forwards;
 
   display: flex;
   align-items: center;

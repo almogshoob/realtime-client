@@ -18,7 +18,11 @@ import { loadIcons, loadLayer } from "../../utils/mapboxUtils";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { stopsData } from "../../assets/data";
 import { AddIcon, FocusIcon, StopIcon } from "../../assets/icons";
-import { myLocationLayer } from "../../mapbox/layers/myLocation";
+import {
+  myLocationLayer,
+  updateLocationLayer,
+} from "../../mapbox/layers/myLocation";
+import { getDeviceLocation } from "../../utils";
 import "./MapCard.css";
 
 const createMap = () => {
@@ -65,8 +69,6 @@ export const MapCard = () => {
     setSelectedStop(null);
   };
 
-  const handleFocusLocation = () => {};
-
   useEffect(() => {
     if (mapRef.current) {
       const source = mapRef.current.getSource(stopsLayer.name) as GeoJSONSource;
@@ -97,13 +99,33 @@ export const MapCard = () => {
     };
   }, []);
 
+  // const [isLocationOn, setIsLocationOn] = useState(false);
+
+  const handleFocusLocation = async () => {
+    // get location
+    const currentLocation = await getDeviceLocation();
+    // update layer
+    const source = mapRef.current?.getSource(
+      myLocationLayer.name
+    ) as GeoJSONSource;
+    source.setData(updateLocationLayer(currentLocation) as GeoJSON.GeoJSON);
+    // refresh
+    if (currentLocation) {
+      mapRef.current?.flyTo({
+        center: currentLocation,
+        zoom: STOP_FOCUS_ZOOM,
+      });
+      // setIsLocationOn(true);
+    } else {
+      // setIsLocationOn(false);
+    }
+  };
+
   return (
     <div id="stops-map" className="map-container">
       <div className="map-action-buttons">
-        <button
-          className="map-focus-button | hoverable"
-          onClick={handleFocusLocation}
-        >
+        <button className="hoverable" onClick={handleFocusLocation}>
+          {/* <FocusIcon color={isLocationOn ? "#255dfa" : "currentColor"} /> */}
           <FocusIcon />
         </button>
       </div>
