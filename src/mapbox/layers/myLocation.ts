@@ -1,8 +1,4 @@
-import {
-  AddLayerObject,
-  Feature,
-  GeoJSONSourceSpecification,
-} from "maplibre-gl";
+import { AddLayerObject, GeoJSONSourceSpecification } from "maplibre-gl";
 import { Coordinate, MapLayerData } from "../../types";
 import { coordinateToArray, getLastLocation } from "../../utils";
 
