@@ -1,5 +1,5 @@
 import { SERVER_URL } from "../constants/constants";
-import { BNRouteSchedule, RouteSchedule } from "../types";
+import { RouteSchedule } from "../types";
 
 type UrlParams = { [key: string]: string | number | boolean };
 type UrlStringParams = { [key: string]: string };
@@ -31,112 +31,36 @@ export const fetchGet = ({ url, params, headers }: FetchGet) =>
     // else throw new Error(response.statusText);
   });
 
-// TODO combine duplicates by route + head sign (needed if different pattern)
-const formatStopSchedule = (
-  stopSchedule: BNRouteSchedule[],
+const filterStopSchedule = (
+  stopSchedule: RouteSchedule[],
   routes: string[]
 ): RouteSchedule[] => {
-  return stopSchedule
-    .filter(
-      (routeSchedule) =>
-        routes.includes(routeSchedule.pattern.route.shortName) &&
-        routeSchedule.times.length
-    )
-    .map((routeSchedule) => ({
-      shortName: routeSchedule.pattern.route.shortName,
-      headsign: routeSchedule.times[0].headsign,
-      color: routeSchedule.pattern.route.color,
-      arrivals: routeSchedule.times.map((arrival) => ({
-        isRealtime: arrival.realtimeState === "UPDATED",
-        arrivalTime: arrival.serviceDay + arrival.realtimeArrival,
-        arrivalDelay: arrival.arrivalDelay,
-        isPickup: arrival.continuousPickup === 1,
-        isDropOff: arrival.continuousDropOff === 1,
-        isAccessible: arrival.wheelchairAccessible,
-      })),
-    }));
+  return stopSchedule.filter((routeSchedule) =>
+    routes.includes(routeSchedule.shortName)
+  );
 };
 
 export const getStopSchedule = async (stopId: string, lines: string[]) => {
-  const data: BNRouteSchedule[] = await fetchGet({
-    url: `${SERVER_URL}/get-stop`,
-    params: { stopId },
+  const data: RouteSchedule[] = await fetchGet({
+    url: `${SERVER_URL}/stops/${stopId}`,
   });
-  return formatStopSchedule(data, lines);
+  return filterStopSchedule(data, lines);
 };
 
 export const getStopsSchedules = async (stops: {
   [stopId: string]: string[];
 }) => {
-  const stopsData: { [stopId: string]: BNRouteSchedule[] } = await fetchGet({
-    url: `${SERVER_URL}/get-stops`,
+  const stopsData: { [stopId: string]: RouteSchedule[] } = await fetchGet({
+    url: `${SERVER_URL}/stops`,
     params: { stopsIds: Object.keys(stops).join(",") },
   });
   return Object.fromEntries(
     Object.entries(stopsData).map(([stopId, routeSchedule]) => [
       stopId,
-      formatStopSchedule(routeSchedule, stops[stopId]),
+      filterStopSchedule(routeSchedule, stops[stopId]),
     ])
   );
 };
-
-/*
-
-// another data source gov
-// https://bus.gov.il/#/realtime/1/0/2/30530
-
-// not needed while having stops.txt
-const isStopExist = (stopId: string) => {
-  // https://data.gov.il/dataset/bus_stops/resource/e873e6a2-66c1-494f-a677-f5e77348edb0
-  return fetchGet({
-    url: "https://data.gov.il/api/3/action/datastore_search",
-    params: {
-      resource_id: "e873e6a2-66c1-494f-a677-f5e77348edb0",
-      fields: "StationId",
-      q: stopId,
-      limit: 1,
-      offset: 0,
-    },
-  });
-};
-
-// not needed while having stops.txt
-// GET: https://app.busnearby.co.il/stopSearch?query=30530&locale=he -> Stop[]
-type BNStop = {
-  latitude: number; // 32.065728
-  longitude: number; // 34.843931,
-  stop_name: string; // "אוניברסיטת בר אילן/דרך אשכול",
-  stop_id: string; // "39311",
-  stop_code: string; // "30530",
-  address: string; // "רמת גן",
-  location_type: number; // 5
-};
-const searchStop = async (query: string) => {
-  const data: BNStop[] = await fetchGet({
-    url: `${API_URL}/stopSearch`,
-    params: { query, locale: "he" },
-  });
-  return data;
-};
-
-// not really needed
-// GET: https://api.busnearby.co.il/directions/index/stops/1:39311/routes -> Route[]
-type BNRoute = {
-  id: string; // "1:989",
-  shortName: string; // "68",
-  longName: string; // "מסוף קרית אונו-קרית אונו<->מסוף רדינג/הורדה-תל אביב יפו-20",
-  mode: string; // "BUS",
-  color: string; // "F78F1E",
-  agencyName: string; // "מטרופולין"
-};
-const getStopRoutes = async (stopId: string) => {
-  const data: BNRoute[] = await fetchGet({
-    url: `${API_URL}/directions/index/stops/1:${stopId}/routes`,
-  });
-  return data;
-};
-
-*/
 
 /*
 

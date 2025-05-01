@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { RefreshIcon } from "../../assets/icons";
+import useLocationStore from "../../stores/location";
 import useStopsStore from "../../stores/stops";
 import { getDeviceLocation, getStopsSchedules } from "../../utils";
 import "./Navbar.css";
-import useLocationStore from "../../stores/location";
 
 export const Navbar = () => {
   const [isLoading, setIsLoading] = useState(false);
