@@ -42,7 +42,6 @@ function App() {
 export default App;
 
 // TODO
-// - enhance search
 // - add stop using map
 // - focus to location and update untill off
 // NTH

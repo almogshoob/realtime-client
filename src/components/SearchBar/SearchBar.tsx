@@ -6,6 +6,7 @@ import { MapIcon } from "../../assets/icons";
 import { Modal } from "../templates";
 import { MapCard } from "../MapCard/MapCard";
 import { stopsDataList } from "../../assets/data";
+import { doesTextMatchQuery } from "../../utils";
 
 type Props = {};
 
@@ -19,15 +20,14 @@ export const SearchBar = ({}: Props) => {
 
   const updateOptions = (searchValue: string) => {
     if (!searchValue) setOptions([]);
-    else if (searchValue.length > 3)
-      setOptions(
-        stopsDataList
-          .filter(
-            (stop) =>
-              stop.code.includes(searchValue) || stop.name.includes(searchValue)
-          )
-          .slice(0, 10)
+    else if (searchValue.length > 3) {
+      const stopsByQuery = stopsDataList.filter(
+        (stop) =>
+          stop.code.includes(searchValue) ||
+          doesTextMatchQuery(stop.name, searchValue)
       );
+      setOptions(stopsByQuery.slice(0, 10));
+    }
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
