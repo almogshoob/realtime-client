@@ -39,7 +39,8 @@ export const EditModal = ({ open, onClose, stopData, mode }: Props) => {
 
   const handleEdit = () => {
     setUserStop(stopData.id, selectedRoutes);
-    onClose();
+    // onClose();
+    handleClose();
   };
 
   const handleClose = () => {
