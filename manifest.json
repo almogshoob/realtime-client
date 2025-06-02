@@ -1,0 +1,22 @@
+{
+  "name": "Real Time",
+  "short_name": "Real Time",
+  "display": "standalone",
+  "start_url": ".",
+  
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+
+  "icons": [
+    {
+      "src": "/realtime-client/icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/realtime-client/icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
