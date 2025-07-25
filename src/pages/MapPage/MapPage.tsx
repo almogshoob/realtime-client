@@ -1,5 +1,5 @@
 import { MapCard } from "../../components";
-import "./MapPage.css"
+import "./MapPage.css";
 
 export const MapPage = () => {
   return (
@@ -9,6 +9,7 @@ export const MapPage = () => {
           <MapCard />
         </div>
       </main>
+      {/* TODO add stop using map */}
       {/* {selectedStop && (
         <EditModal
           open={isEditModalOpen}

@@ -1,13 +1,11 @@
 import { ChangeEvent, MouseEventHandler, useState } from "react";
-import { Stop } from "../../types";
-import "./SearchBar.css";
-import { EditModal } from "../EditModal/EditModal";
-import { MapIcon } from "../../assets/icons";
-import { Modal } from "../templates";
-import { MapCard } from "../MapCard/MapCard";
-import { stopsDataList } from "../../assets/data";
-import { doesTextMatchQuery } from "../../utils";
 import { Link } from "react-router-dom";
+import { stopsDataList } from "../../assets/data";
+import { MapIcon } from "../../assets/icons";
+import { Stop } from "../../types";
+import { doesTextMatchQuery } from "../../utils";
+import { EditModal } from "../EditModal/EditModal";
+import "./SearchBar.css";
 
 type Props = {};
 
