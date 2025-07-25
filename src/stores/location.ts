@@ -7,12 +7,10 @@ type LocationStore = {
   setLocation: (location: Coordinate) => void;
 };
 
-const useLocationStore = create<LocationStore>((set, _get) => ({
+export const useLocationStore = create<LocationStore>((set, _get) => ({
   location: getLastLocation(),
   setLocation: (location) => {
     localStorage.setItem("last-location", JSON.stringify(location));
     set({ location });
   },
 }));
-
-export default useLocationStore;

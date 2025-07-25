@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { RefreshIcon } from "../../assets/icons";
-import useLocationStore from "../../stores/location";
-import useStopsStore from "../../stores/stops";
+import { useLocationStore, useStopsStore } from "../../stores";
 import { getDeviceLocation, getStopsSchedules } from "../../utils";
 import "./Navbar.css";
 

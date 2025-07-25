@@ -1,0 +1,9 @@
+.map-content {
+  padding: 0;
+}
+
+.map-modal {
+  display: block;
+  height: 100svh;
+  min-width: min(90vw, 400px);
+}

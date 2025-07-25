@@ -7,6 +7,7 @@ import { Modal } from "../templates";
 import { MapCard } from "../MapCard/MapCard";
 import { stopsDataList } from "../../assets/data";
 import { doesTextMatchQuery } from "../../utils";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -15,7 +16,6 @@ export const SearchBar = ({}: Props) => {
   const [options, setOptions] = useState<Stop[]>([]);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [selectedStop, setSelectedStop] = useState<Stop>();
 
   const updateOptions = (searchValue: string) => {
@@ -80,12 +80,9 @@ export const SearchBar = ({}: Props) => {
           </menu>
         )}
       </div>
-      <button
-        className="map-button | hoverable"
-        onClick={() => setIsMapModalOpen(true)}
-      >
+      <Link to="/map" className="map-button | link-button hoverable">
         <MapIcon />
-      </button>
+      </Link>
 
       {selectedStop && (
         <EditModal
@@ -95,11 +92,6 @@ export const SearchBar = ({}: Props) => {
           mode="add"
         />
       )}
-      <Modal raw open={isMapModalOpen} onClose={() => setIsMapModalOpen(false)}>
-        <div className="map-modal">
-          <MapCard />
-        </div>
-      </Modal>
     </div>
   );
 };

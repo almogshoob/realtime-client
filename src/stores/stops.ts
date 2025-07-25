@@ -27,7 +27,7 @@ type StopsStore = {
 
 const localStorageStops = JSON.parse(localStorage.getItem("stops") || "{}");
 
-const useStopsStore = create<StopsStore>((set, _get) => ({
+export const useStopsStore = create<StopsStore>((set, _get) => ({
   userStops: localStorageStops,
   setUserStops: (userStops) => {
     localStorage.setItem("stops", JSON.stringify(userStops));
@@ -50,5 +50,3 @@ const useStopsStore = create<StopsStore>((set, _get) => ({
   stopsSchedule: {},
   setStopsSchedule: (stopsSchedule) => set({ stopsSchedule }),
 }));
-
-export default useStopsStore;

@@ -1,6 +1,6 @@
 import { KeyboardEventHandler, useRef, useState } from "react";
 import { useShallow } from "zustand/shallow";
-import useStopsStore from "../../stores/stops";
+import { useStopsStore } from "../../stores";
 import { Stop } from "../../types";
 import { Modal } from "../templates";
 import "./EditModal.css";

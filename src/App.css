@@ -4,20 +4,7 @@
   padding: 2rem 1rem;
 }
 
-.stop-list {
-  & > :not(:last-child) {
-    margin-bottom: 0.5em;
-  }
-}
-
-.no-data {
-  text-align: center;
-  font-size: var(--fs-lg);
-  line-height: 1.5;
-  margin-block: auto;
-}
-
-button {
+button, .link-button {
   border: unset;
   border-radius: 5px;
   padding: 0.25em 0.5em;

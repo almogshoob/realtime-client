@@ -65,11 +65,3 @@
   align-items: center;
 }
 
-.map-modal {
-  min-width: min(90vw, 400px);
-  height: 90svh;
-
-  & > :first-child {
-    border-radius: 5px;
-  }
-}

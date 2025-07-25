@@ -1,4 +1,4 @@
-import useStopsStore from "../../stores/stops";
+import { useStopsStore } from "../../stores";
 import { Stop } from "../../types";
 import { Modal } from "../templates";
 import "./DeleteModal.css";

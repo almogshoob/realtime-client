@@ -1,0 +1,12 @@
+.stop-list {
+  & > :not(:last-child) {
+    margin-bottom: 0.5em;
+  }
+}
+
+.no-data {
+  text-align: center;
+  font-size: var(--fs-lg);
+  line-height: 1.5;
+  margin-block: auto;
+}

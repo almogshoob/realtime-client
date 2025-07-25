@@ -10,8 +10,10 @@ const raws = [
   { src: myLocationInactive, name: "my-location-inactive" },
 ];
 
-export const mapImages = raws.map((raw) => {
-  const img = document.createElement("img");
-  img.src = raw.src;
-  return { img, name: raw.name };
-});
+export const mapImages = Object.fromEntries(
+  raws.map((raw) => {
+    const img = document.createElement("img");
+    img.src = raw.src;
+    return [raw.name, img];
+  })
+);
