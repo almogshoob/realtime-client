@@ -53,10 +53,13 @@ export const StopsLayer = () => {
     map.on("click", handleMapClick);
 
     return () => {
-      map.off("click", handleMapClick);
-      map.off("click", layerConfig.id, handleStopClick);
-      map.removeLayer(layerConfig.id);
-      map.removeSource(layerConfig.source);
+      if (map.loaded()) {
+        //check if loaded because could be after map.remove() and before setMap(undefined)
+        map.off("click", handleMapClick);
+        map.off("click", layerConfig.id, handleStopClick);
+        map.removeLayer(layerConfig.id);
+        map.removeSource(layerConfig.source);
+      }
       setSelectedStop(undefined);
     };
   }, [map]);
