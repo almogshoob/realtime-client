@@ -31,7 +31,7 @@ export const StopsLayer = () => {
 
   // handle select stop
   useEffect(() => {
-    if (!map || !map.getSource(layerConfig.id)) return;
+    if (!map || !map.getSource(layerConfig.source)) return;
 
     const source = map.getSource(layerConfig.source) as GeoJSONSource;
     source.setData(getLayerSource(selectedStop).data);
