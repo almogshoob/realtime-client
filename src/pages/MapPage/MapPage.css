@@ -2,8 +2,30 @@
   padding: 0;
 }
 
-.map-modal {
-  display: block;
+.map-wrapper {
+  position: relative;
   height: 100svh;
   min-width: min(90vw, 400px);
+}
+
+.map-action-buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  gap: 0.25em;
+  padding: 0.5em;
+
+  & > * {
+    border-radius: 50%;
+    aspect-ratio: 1;
+    padding: 0.25em;
+    color: #000;
+    background-color: #fff;
+    box-shadow: 0 0 5px hsl(0 0 0 / 0.5);
+    --bg-to-hover: #fff;
+  }
 }

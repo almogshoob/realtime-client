@@ -1,9 +1,5 @@
 export type Coordinate = { lat: number; lon: number };
 
-// get stop by stop number
-// this file match the stop_id of bus nearby
-// https://www.gov.il/he/pages/gtfs_general_transit_feed_specifications
-// https://gtfs.mot.gov.il/gtfsfiles/israel-public-transportation.zip /stops.txt + formatStopsTxt
 export type Stop = {
   id: string;
   code: string;
@@ -15,12 +11,12 @@ export type Stop = {
 };
 
 export type RouteArrival = {
-  isRealtime: boolean; // realtimeState === "UPDATED"
-  arrivalTime: number; // serviceDay + realtimeArrival
+  isRealtime: boolean;
+  arrivalTime: number;
   arrivalDelay: number;
-  isPickup: boolean; // continuousPickup === 1
-  isDropOff: boolean; // continuousDropOff === 1
-  isAccessible: boolean; // wheelchairAccessible
+  isPickup: boolean;
+  isDropOff: boolean;
+  isAccessible: boolean;
 };
 
 export type RouteSchedule = {

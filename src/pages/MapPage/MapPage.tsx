@@ -1,23 +1,19 @@
 import { MapCard } from "../../components";
+import { LocationLayer, StopsLayer } from "../../layers";
 import "./MapPage.css";
 
 export const MapPage = () => {
   return (
     <>
       <main className="content map-content">
-        <div className="map-modal">
+        <div className="map-wrapper">
           <MapCard />
+          <StopsLayer />
+          <div className="map-action-buttons">
+            <LocationLayer />
+          </div>
         </div>
       </main>
-      {/* TODO add stop using map */}
-      {/* {selectedStop && (
-        <EditModal
-          open={isEditModalOpen}
-          onClose={() => setIsEditModalOpen(false)}
-          stopData={selectedStop}
-          mode="add"
-        />
-      )} */}
     </>
   );
 };
