@@ -14,7 +14,7 @@ export const SearchBar = ({}: Props) => {
   const [options, setOptions] = useState<Stop[]>([]);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedStop, setSelectedStop] = useState<Stop>();
+  const [selectedStop, setSelectedStop] = useState<string>();
 
   const updateOptions = (searchValue: string) => {
     if (!searchValue) setOptions([]);
@@ -43,9 +43,9 @@ export const SearchBar = ({}: Props) => {
   };
 
   const getSelectStopHandler =
-    (stop: Stop): MouseEventHandler<HTMLLIElement> =>
+    (stopId: string): MouseEventHandler<HTMLLIElement> =>
     () => {
-      setSelectedStop(stop);
+      setSelectedStop(stopId);
       setIsEditModalOpen(true);
       setSearchValue("");
       setOptions([]);
@@ -68,7 +68,7 @@ export const SearchBar = ({}: Props) => {
               <li
                 key={stop.id}
                 onMouseDown={(e) => e.preventDefault()} // prevent onBlur
-                onClick={getSelectStopHandler(stop)}
+                onClick={getSelectStopHandler(stop.id)}
                 className="hoverable"
               >
                 <span>{stop.name}</span>
@@ -86,8 +86,7 @@ export const SearchBar = ({}: Props) => {
         <EditModal
           open={isEditModalOpen}
           onClose={() => setIsEditModalOpen(false)}
-          stopData={selectedStop}
-          mode="add"
+          stopId={selectedStop}
         />
       )}
     </div>

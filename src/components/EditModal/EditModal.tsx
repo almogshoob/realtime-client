@@ -1,25 +1,34 @@
-import { KeyboardEventHandler, useRef, useState } from "react";
-import { useShallow } from "zustand/shallow";
+import {
+  KeyboardEventHandler,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { stopsData } from "../../assets/data";
 import { useStopsStore } from "../../stores";
-import { Stop } from "../../types";
 import { Modal } from "../templates";
 import "./EditModal.css";
 
 type Props = {
   open: boolean;
   onClose: () => void;
-  stopData: Stop;
-  mode: "edit" | "add";
+  stopId: string;
 };
 
-export const EditModal = ({ open, onClose, stopData, mode }: Props) => {
-  const userStopRoutes = useStopsStore(
-    useShallow((state) => state.userStops[stopData.id] || [])
-  );
+export const EditModal = ({ open, onClose, stopId }: Props) => {
+  const userRoutes = useStopsStore((state) => state.userStops[stopId]);
   const setUserStop = useStopsStore((state) => state.setUserStop);
+  const text = useMemo(
+    () =>
+      userRoutes
+        ? { title: "עדכון תחנה", action: "עדכון" }
+        : { title: "הוספת תחנה", action: "הוספה" },
+    [userRoutes]
+  );
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const [selectedRoutes, setSelectedRoutes] = useState(userStopRoutes);
+  const [selectedRoutes, setSelectedRoutes] = useState<string[]>([]);
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key === "Enter") {
@@ -38,27 +47,22 @@ export const EditModal = ({ open, onClose, stopData, mode }: Props) => {
   };
 
   const handleEdit = () => {
-    setUserStop(stopData.id, selectedRoutes);
-    // onClose();
-    handleClose();
-  };
-
-  const handleClose = () => {
-    setTimeout(() => setSelectedRoutes(userStopRoutes), 200);
+    setUserStop(stopId, selectedRoutes);
     onClose();
   };
 
-  const title = mode === "edit" ? "עדכון תחנה" : "הוספת תחנה";
-  const action = mode === "edit" ? "עדכון" : "הוספה";
+  useEffect(() => {
+    if (open) setSelectedRoutes(userRoutes || []);
+  }, [open]);
 
   return (
     <Modal
       open={open}
-      onClose={handleClose}
-      title={title}
+      onClose={onClose}
+      title={text.title}
       className="edit-modal"
     >
-      <p>קווים בתחנת {stopData.name}:</p>
+      <p>קווים בתחנת {stopsData[stopId].name}:</p>
       <input
         ref={inputRef}
         onKeyDown={handleKeyDown}
@@ -74,7 +78,7 @@ export const EditModal = ({ open, onClose, stopData, mode }: Props) => {
         ))}
       </div>
       <button onClick={handleEdit} className="edit-button | hoverable">
-        {action}
+        {text.action}
       </button>
     </Modal>
   );

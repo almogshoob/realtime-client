@@ -63,13 +63,12 @@ export const StopHeader = ({ stopData }: Props) => {
       <EditModal
         open={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
-        stopData={stopData}
-        mode="edit"
+        stopId={stopData.id}
       />
       <DeleteModal
         open={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
-        stopData={stopData}
+        stopId={stopData.id}
       />
     </div>
   );

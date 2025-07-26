@@ -12,15 +12,15 @@ export const reducer = <T, U>({
   map,
   filterAfter,
   direction = "left",
-}: ReducerProps<T, U>) => {
-  const reduceFunction = (list: T[], item: T) => {
-    if (!filterBefore || filterBefore(item)) {
-      const mappedItem = map(item);
-      if (!filterAfter || filterAfter(mappedItem)) return [...list, item];
-    }
-    return list;
-  };
-  return direction === "left"
-    ? list.reduce(reduceFunction, [])
-    : list.reduceRight(reduceFunction, []);
+}: ReducerProps<T, U>): U[] => {
+  return (direction === "left" ? list.reduce : list.reduceRight)(
+    (list: U[], item: T) => {
+      if (!filterBefore || filterBefore(item)) {
+        const mappedItem = map(item);
+        if (!filterAfter || filterAfter(mappedItem)) list.push(mappedItem);
+      }
+      return list;
+    },
+    []
+  );
 };
