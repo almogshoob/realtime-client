@@ -1,5 +1,5 @@
 import { SERVER_URL } from "../constants/constants";
-import { RouteSchedule } from "../types";
+import { RouteData, RouteSchedule } from "../types";
 
 type UrlParams = { [key: string]: string | number | boolean };
 type UrlStringParams = { [key: string]: string };
@@ -60,6 +60,13 @@ export const getStopsSchedules = async (stops: {
       filterStopSchedule(routeSchedule, stops[stopId]),
     ])
   );
+};
+
+export const getRouteData = async (routePatternId: string) => {
+  const routeData: RouteData = await fetchGet({
+    url: `${SERVER_URL}/route/${routePatternId}`,
+  });
+  return routeData;
 };
 
 /*

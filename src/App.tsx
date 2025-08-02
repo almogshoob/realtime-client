@@ -8,7 +8,7 @@ const router = createHashRouter([
     element: <MainPage />,
   },
   {
-    path: "/map",
+    path: "/map/:lineId?",
     element: <MapPage />,
   },
 ]);
@@ -20,9 +20,10 @@ function App() {
 export default App;
 
 // TODO
-// - add stop using map (works but buggy)
+// - use try catch on requests?
+// - display line route on map (option to reverse direction?)
+// - display on map starred stops differently
+// - home page option to expand stop and watch full schedule
+// - in stop modal display routes options
 // - store of modals, modals render only on Layout with Outlet
-// - show line route on map
-// NTH
 // - use password (https://bigprimes.org/)
-// GET ROUTES IN STOP https://api.busnearby.co.il/directions/index/stops/1:48863/routes

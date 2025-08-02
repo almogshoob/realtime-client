@@ -2,8 +2,7 @@ import {
   GeoJSONSourceSpecification,
   SymbolLayerSpecification,
 } from "maplibre-gl";
-import { stopsDataList } from "../../assets/data";
-import { MapLayerData } from "../../types";
+import { MapLayerData, Stop } from "../../types";
 import { coordinateToArray } from "../../utils";
 
 const layerName = "stops";
@@ -22,17 +21,18 @@ export const layerConfig: SymbolLayerSpecification = {
     // "icon-size": ["interpolate", ["linear"], ["zoom"], 14, 1, 16, 1.4], // with full size icon
     "icon-size": ["interpolate", ["linear"], ["zoom"], 14, 0.75, 16, 1],
   },
-  minzoom: 13,
+  minzoom: 13, // TODO not enough when looking on a route
 };
 
 export const getLayerSource = (
+  stops: Pick<Stop, "id" | "lat" | "lon">[],
   selectedStop?: string
 ): GeoJSONSourceSpecification => {
   return {
     type: "geojson",
     data: {
       type: "FeatureCollection",
-      features: stopsDataList.map(({ id, lat, lon }) => {
+      features: stops.map(({ id, lat, lon }) => {
         const feature: GeoJSON.Feature = {
           type: "Feature",
           geometry: {
@@ -50,8 +50,10 @@ export const getLayerSource = (
   };
 };
 
-export const layerInit: MapLayerData = {
+export const getlayerInit = (
+  stops: Pick<Stop, "id" | "lat" | "lon">[]
+): MapLayerData => ({
   name: layerName,
   config: layerConfig,
-  source: getLayerSource(),
-};
+  source: getLayerSource(stops),
+});

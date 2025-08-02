@@ -10,7 +10,10 @@ export type Stop = {
   parent: string;
 };
 
+export type MapStop = Pick<Stop, "id" | "lat" | "lon">;
+
 export type RouteArrival = {
+  patternId: string;
   isRealtime: boolean;
   arrivalTime: number;
   arrivalDelay: number;
@@ -24,6 +27,14 @@ export type RouteSchedule = {
   headsign: string; // "בני ברק_קניון איילון"
   color: string; // "004c99"
   arrivals: RouteArrival[];
+};
+
+export type RouteData = {
+  shortName: string; // 292
+  headsign: string; // "בני ברק_קניון איילון"
+  color: string; // "004c99"
+  stops: { id: string; lat: number; lon: number }[];
+  geometry: string; // https://polylinedecoder.online
 };
 
 export type UserStops = { [stopId: string]: string[] };

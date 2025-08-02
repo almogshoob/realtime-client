@@ -96,3 +96,17 @@ export const toSortedByDistance = (stops: Stop[], location: Coordinate) => {
   );
   return copy;
 };
+
+export const getBoundingBox = (coordinates: Coordinate[]) => {
+  let minLat = coordinates[0].lat;
+  let minLon = coordinates[0].lon;
+  let maxLat = coordinates[0].lat;
+  let maxLon = coordinates[0].lon;
+  coordinates.forEach((coordinate) => {
+    if (coordinate.lat < minLat) minLat = coordinate.lat;
+    else if (coordinate.lat > maxLat) maxLat = coordinate.lat;
+    if (coordinate.lon < minLon) minLon = coordinate.lon;
+    else if (coordinate.lon > maxLon) maxLon = coordinate.lon;
+  });
+  return { minLat, minLon, maxLat, maxLon };
+};

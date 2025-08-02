@@ -1,6 +1,7 @@
 import { CSSProperties } from "react";
-import { arrivalTimeToString } from "../../../utils";
+import { Link } from "react-router-dom";
 import { RouteSchedule } from "../../../types";
+import { arrivalTimeToString } from "../../../utils";
 import "../StopCard.css";
 
 type Props = {
@@ -10,12 +11,13 @@ type Props = {
 export const StopRouteItem = ({ route }: Props) => {
   return (
     <div className="stop-route">
-      <div
+      <Link
+        to={`/map/${route.arrivals[0].patternId}`}
         className="route-icon"
         style={{ "--highlight": `#${route.color}` } as CSSProperties}
       >
-        <p>{route.shortName}</p>
-      </div>
+        {route.shortName}
+      </Link>
       <p className="head-to">{route.headsign.split("_")[0]}</p>
       <div className="arrivals">
         {route.arrivals.map((arrival, i) => {
