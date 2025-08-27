@@ -1,7 +1,7 @@
 import { AddLayerObject, GeoJSONSourceSpecification } from "maplibre-gl";
 
-export type MapLayerData = {
+export type MapLayerData<T extends AddLayerObject> = {
   name: string;
   source: GeoJSONSourceSpecification;
-  config: AddLayerObject;
+  config: T;
 };

@@ -38,7 +38,7 @@ export const MapCard = () => {
     setMap(map);
 
     return () => {
-      map.remove();
+      map.remove(); // TODO remove?
       setMap(undefined);
     };
   }, []);

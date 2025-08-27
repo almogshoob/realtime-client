@@ -1,6 +1,6 @@
-import { Map, Marker } from "maplibre-gl";
-import { MapLayerData } from "../types";
+import { AddLayerObject, Map, Marker } from "maplibre-gl";
 import { mapImages } from "../assets/mapImages";
+import { MapLayerData } from "../types";
 import { getLastLocation } from "./locationUtils";
 
 export const loadIcons = (
@@ -10,7 +10,10 @@ export const loadIcons = (
   Object.entries(icons).forEach(([name, img]) => map.addImage(name, img));
 };
 
-export const loadLayer = (map: Map, layer: MapLayerData) => {
+export const loadLayer = <T extends AddLayerObject>(
+  map: Map,
+  layer: MapLayerData<T>
+) => {
   map.addSource(layer.name, layer.source);
   map.addLayer(layer.config);
 };

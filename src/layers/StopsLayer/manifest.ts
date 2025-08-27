@@ -50,9 +50,9 @@ export const getLayerSource = (
   };
 };
 
-export const getlayerInit = (
+export const getLayerInit = (
   stops: Pick<Stop, "id" | "lat" | "lon">[]
-): MapLayerData => ({
+): MapLayerData<SymbolLayerSpecification> => ({
   name: layerName,
   config: layerConfig,
   source: getLayerSource(stops),

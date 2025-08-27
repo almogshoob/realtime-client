@@ -42,6 +42,7 @@ export const RouteLayer = ({ routePatternId }: Props) => {
           loadLayer(map, layerInit);
         });
 
+      // TODO error stops shows only on first try, backword forward and it doesnt show
       setStops(data.stops); // add stops above polyline
 
       return () => {

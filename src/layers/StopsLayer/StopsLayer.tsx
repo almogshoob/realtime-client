@@ -6,7 +6,7 @@ import { STOP_FOCUS_ZOOM } from "../../constants/mapConstants";
 import { useMapStore } from "../../stores";
 import { Stop } from "../../types";
 import { loadLayer } from "../../utils/mapboxUtils";
-import { getlayerInit, getLayerSource, layerConfig } from "./manifest";
+import { getLayerInit, getLayerSource, layerConfig } from "./manifest";
 
 type Props = {
   stops: Pick<Stop, "id" | "lat" | "lon">[];
@@ -47,25 +47,25 @@ export const StopsLayer = ({ stops }: Props) => {
   useEffect(() => {
     if (!map) return;
 
-    const layerInit = getlayerInit(stops);
+    const layerInit = getLayerInit(stops);
     if (map.isStyleLoaded()) loadLayer(map, layerInit);
     else map.once("load", () => loadLayer(map, layerInit));
-    
+
     // handlers happend by order
-    map.on("click", layerConfig.id, handleStopClick);
+    map.on("click", layerInit.config.id, handleStopClick);
     map.on("click", handleMapClick);
 
     return () => {
       if (map.loaded()) {
         //check if loaded because could be after map.remove() and before setMap(undefined)
         map.off("click", handleMapClick);
-        map.off("click", layerConfig.id, handleStopClick);
-        map.removeLayer(layerConfig.id);
-        map.removeSource(layerConfig.source);
+        map.off("click", layerInit.config.id, handleStopClick);
+        map.removeLayer(layerInit.config.id);
+        map.removeSource(layerInit.config.source);
       }
       setSelectedStop(undefined);
     };
-  }, [map, stops]);
+  }, [map]);
 
   return selectedStop ? <StopDrawer stopId={selectedStop} /> : null;
 };

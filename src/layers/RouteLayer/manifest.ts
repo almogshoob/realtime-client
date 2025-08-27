@@ -61,7 +61,7 @@ export const getLayerSource = (
 export const getLayerInit = (
   line: Coordinate[],
   color: string
-): MapLayerData => ({
+): MapLayerData<LineLayerSpecification> => ({
   name: layerName,
   config: layerConfig,
   source: getLayerSource(line, color),
