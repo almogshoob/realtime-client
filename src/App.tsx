@@ -21,9 +21,16 @@ export default App;
 
 // TODO
 // - use try catch on requests?
-// - display line route on map (option to reverse direction?)
-// - display on map starred stops differently
-// - home page option to expand stop and watch full schedule
-// - in stop modal display routes options
+
+// - map route
+// - fix bug stops not always displayed
+// - reverse direction?
+
+// - add stop route full schedule (where?)
+// - display unsaved stop live schedule (from map)
+
+// - different map icon for starred stops
+// - in add stop modal display routes options
+
 // - store of modals, modals render only on Layout with Outlet
 // - use password (https://bigprimes.org/)
