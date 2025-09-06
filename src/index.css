@@ -121,6 +121,9 @@ h1 {
     background-color: var(--hover-color);
   }
 }
+a.icon-button {
+  transition: background-color 200ms;
+}
 
 * {
   -webkit-tap-highlight-color: transparent;

@@ -20,7 +20,7 @@ type FetchGet = {
   headers?: { [key: string]: string };
 };
 
-export const fetchGet = ({ url, params, headers }: FetchGet) =>
+const fetchGet = ({ url, params, headers }: FetchGet) =>
   fetch(url + (params ? createSearchParams(params) : ""), {
     method: "GET",
     headers,
@@ -40,11 +40,11 @@ const filterStopSchedule = (
   );
 };
 
-export const getStopSchedule = async (stopId: string, lines: string[]) => {
+export const getStopSchedule = async (stopId: string, lines?: string[]) => {
   const data: RouteSchedule[] = await fetchGet({
     url: `${SERVER_URL}/stops/${stopId}`,
   });
-  return filterStopSchedule(data, lines);
+  return lines ? filterStopSchedule(data, lines) : data;
 };
 
 export const getStopsSchedules = async (stops: {

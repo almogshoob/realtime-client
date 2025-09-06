@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { MenuIcon, StopIcon } from "../../../assets/icons";
 import { Stop } from "../../../types";
 import { DeleteModal } from "../../DeleteModal/DeleteModal";
@@ -29,7 +30,9 @@ export const StopHeader = ({ stopData }: Props) => {
 
   return (
     <div className="stop-header">
-      <StopIcon />
+      <Link to={`/stop/${stopData.id}`}>
+        <StopIcon />
+      </Link>
       <div className="stop-description">
         <p>{stopData.name}</p>
         <p>

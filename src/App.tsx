@@ -1,6 +1,6 @@
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, Navigate, RouterProvider } from "react-router-dom";
 import "./App.css";
-import { MainPage, MapPage } from "./pages";
+import { MainPage, MapPage, StopPage } from "./pages";
 
 const router = createHashRouter([
   {
@@ -11,6 +11,14 @@ const router = createHashRouter([
     path: "/map/:lineId?",
     element: <MapPage />,
   },
+  {
+    path: "/stop/:stopId",
+    element: <StopPage />,
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" replace />,
+  },
 ]);
 
 function App() {
@@ -20,9 +28,8 @@ function App() {
 export default App;
 
 // TODO
-// - use try catch on requests?
 
-// - map route
+// map route:
 // - fix bug stops not always displayed
 // - reverse direction?
 

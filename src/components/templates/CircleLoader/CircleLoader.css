@@ -1,0 +1,44 @@
+.TCircleLoader,
+.TCircleLoader > circle {
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}
+
+.TCircleLoader {
+  animation-name: TCircleLoader-svg-animation;
+  animation-timing-function: linear;
+}
+
+.TCircleLoader > circle {
+  animation-name: TCircleLoader-circle-animation;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes TCircleLoader-svg-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* r=40 so radius = ~250  */
+@keyframes TCircleLoader-circle-animation {
+  0% {
+    stroke-dasharray: 1px, 250px;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 200px, 250px;
+    stroke-dashoffset: -30px;
+  }
+
+  100% {
+    stroke-dasharray: 1px, 250px;
+    stroke-dashoffset: -250px;
+  }
+}

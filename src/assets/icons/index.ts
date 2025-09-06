@@ -6,5 +6,6 @@ import StopIcon from "./stop.svg?react";
 import MenuIcon from "./menu.svg?react";
 import MapIcon from "./map.svg?react";
 import FocusIcon from "./focus.svg?react";
+import ClockIcon from "./clock.svg?react";
 
-export { AddIcon, CloseIcon, RefreshIcon, StopIcon, MenuIcon, MapIcon, FocusIcon };
+export { AddIcon, CloseIcon, RefreshIcon, StopIcon, MenuIcon, MapIcon, FocusIcon, ClockIcon };
