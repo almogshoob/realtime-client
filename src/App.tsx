@@ -34,8 +34,6 @@ export default App;
 // - reverse direction?
 
 // - add stop route full schedule (where?)
-// - display unsaved stop live schedule (from map)
-
 // - different map icon for starred stops
 // - in add stop modal display routes options
 

@@ -11,16 +11,14 @@ export const StopPage = () => {
 
   const [routes, setRoutes] = useState<RouteSchedule[]>([]);
 
-  useEffect(() => {
-    getStopSchedule(stopId).then((routes) => {
-      setRoutes(routes);
-    });
-  }, []);
+  const navRefresh = async () => {
+    const routes = await getStopSchedule(stopId);
+    setRoutes(routes);
+  };
 
-  // TODO navbar refresh does nothing here
   return (
     <>
-      <Navbar />
+      <Navbar refresh={navRefresh} />
       <main className="content">
         <StopCard stopData={stopsData[stopId]} routesOverride={routes} />
       </main>

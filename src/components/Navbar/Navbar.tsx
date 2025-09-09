@@ -1,26 +1,18 @@
 import { useEffect, useState } from "react";
 import { RefreshIcon } from "../../assets/icons";
-import { useLocationStore, useStopsStore } from "../../stores";
-import { getDeviceLocation, getStopsSchedules } from "../../utils";
 import "./Navbar.css";
 
-export const Navbar = () => {
-  const [isLoading, setIsLoading] = useState(false);
+type Props = {
+  refresh: () => Promise<void>;
+};
 
-  const userStops = useStopsStore((state) => state.userStops);
-  const setStopsSchedule = useStopsStore((state) => state.setStopsSchedule);
-  const setLocation = useLocationStore((state) => state.setLocation);
+export const Navbar = ({ refresh }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFetch = async () => {
     setIsLoading(true);
     try {
-      const res = await Promise.all([
-        getDeviceLocation(),
-        getStopsSchedules(userStops),
-      ]);
-      if (res[0]) setLocation(res[0]);
-      // setStopsSchedule(DEMO_DATA);
-      setStopsSchedule(res[1]);
+      await refresh();
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -29,9 +21,7 @@ export const Navbar = () => {
   };
 
   useEffect(() => {
-    getDeviceLocation().then((location) => {
-      if (location) setLocation(location);
-    });
+    handleFetch();
   }, []);
 
   return (

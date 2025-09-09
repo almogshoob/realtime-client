@@ -18,6 +18,7 @@ import { StopsSchedule, UserStops } from "../types";
 
 type StopsStore = {
   userStops: UserStops;
+  getUserStops: () => UserStops;
   setUserStops: (userStops: UserStops) => void;
   setUserStop: (stopId: string, routes: string[]) => void;
   removeUserStop: (stopId: string) => void;
@@ -27,8 +28,9 @@ type StopsStore = {
 
 const localStorageStops = JSON.parse(localStorage.getItem("stops") || "{}");
 
-export const useStopsStore = create<StopsStore>((set, _get) => ({
+export const useStopsStore = create<StopsStore>((set, get) => ({
   userStops: localStorageStops,
+  getUserStops: () => get().userStops,
   setUserStops: (userStops) => {
     localStorage.setItem("stops", JSON.stringify(userStops));
     set({ userStops });
